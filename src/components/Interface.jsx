@@ -22,9 +22,7 @@ export const Interface = () => {
         <h1>Projetos</h1>
     </Section>
     
-    <Section>
-        <h1>Contato</h1>
-    </Section>
+    <ContactSection />
     
     </div>
     );
@@ -130,6 +128,51 @@ return(
                 
 
     </Section>
-)
+);
+};
+
+const ContactSection = () => {
+
+    return(
+        <Section>
+            <h2 className="text-5xl font-bold">Entre em contato</h2>
+            <div className="mt-8 p-8 rounded-md bg-white w-96 max-w-full">
+                <form>
+                    <label for="name" className="font-medium text-gray-900 block mb-1">
+                        Name
+                    </label>
+                    <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1" />
+                    <label
+                    for="email"
+                    className="font-medium text-gray-900 block mb-1 mt-8">
+                        Email
+                    </label>
+                    <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1" />
+                    <label
+                    for="email"
+                    className="font-medium text-gray-900 block mb-1 mt-8">
+                        Mensagem
+                    </label>
+                    <textarea
+                    name="message"
+                    id="message"
+                    className="h-32 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1" />
+                    <button className="bg-indigo-600 text-white py-4 px-8 rounded-lg font-bold">
+                        Enviar
+                    </button>
+                </form>
+            </div>
+        </Section>
+
+
+    )
 
 }
