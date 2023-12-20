@@ -70,6 +70,10 @@ const skills = [
         title: "PHP",
         level: 80,
     },
+    {
+        title: "Nodejs",
+        level: 50,
+    },
    
 ];
 
@@ -145,7 +149,7 @@ const ContactSection = () => {
                     type="text"
                     name="name"
                     id="name"
-                    className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1" />
+                    className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder: text-lg" />
                     <label
                     for="email"
                     className="font-medium text-gray-900 block mb-1 mt-8">
@@ -155,7 +159,7 @@ const ContactSection = () => {
                     type="email"
                     name="email"
                     id="email"
-                    className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1" />
+                    className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder: text-lg" />
                     <label
                     for="email"
                     className="font-medium text-gray-900 block mb-1 mt-8">
@@ -164,8 +168,8 @@ const ContactSection = () => {
                     <textarea
                     name="message"
                     id="message"
-                    className="h-32 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1" />
-                    <button className="bg-indigo-600 text-white py-4 px-8 rounded-lg font-bold">
+                    className="h-32 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder: text-lg" />
+                    <button className="bg-indigo-600 text-white py-4 px-8 rounded-lg font-bold text-lg m-16">
                         Enviar
                     </button>
                 </form>
