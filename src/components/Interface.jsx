@@ -1,12 +1,33 @@
+import { motion } from "framer-motion"
+
 const Section = (props) => {
     const {children} = props;
 
-    return ( <section className={`
+    return ( <motion.section className={`
     h-screen w-screen p-8 max-w-screen-2x1 mx-auto
-    flex flex-col items-start justify-center`}>
+    flex flex-col items-start justify-center`}
+    
+    initial={{
+
+        opacity: 0,
+        y: 50,
+
+    }}
+
+    whileInView={{
+        opacity: 1,
+        y: 0,
+        transition:{
+            duration: 1,
+            delay: 0.6,
+        }
+
+    }}
+
+    >
         {children}
     
-    </section>
+    </motion.section >
     );
 };
 
@@ -38,16 +59,43 @@ const AboutSection =() => {
                 <br />
                 <span className="bg-white px-1 italic">Leonardo</span>
             </h1>
-            <p className="text-lg text-gray-600 mt-4">
+            <motion.p className="text-lg text-gray-600 mt-4"
+                initial={{
+                    opacity: 0,
+                    y: 25,
+                }}
+                whileInView={{
+                    opacity: 1,
+                    y: 0,
+                }}
+                transition={{
+                    duration: 1,
+                    delay: 1.5,                
+                }}
+            >
                 Trabalho como Desenvolvedor Front-End
                 <br />
                 Também me aventuro pelo mundo Back-End
-            </p>
-            <button
+            </motion.p>
+            <motion.button
             className={` bg-indigo-600 text-white py-4 px-8 
-            rounded-lg font-bold text-lg mt-16`}>
+            rounded-lg font-bold text-lg mt-16`}
+            
+            initial={{
+                opacity: 0,
+                y: 25,
+            }}
+            whileInView={{
+                opacity: 1,
+                y: 0,
+            }}
+            transition={{
+                duration: 1,
+                delay: 2,                
+            }}
+            >
                 Entre em contato
-            </button>
+            </motion.button>
         </Section>
 
     )
