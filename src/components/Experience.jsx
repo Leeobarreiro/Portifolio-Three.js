@@ -1,5 +1,5 @@
 import { Office } from "./Office"
-import { motion } from "framer-motion"
+import { motion } from "framer-motion-3d"
 
 export const Experience = (props) => {
   const { section } = props
@@ -15,7 +15,7 @@ export const Experience = (props) => {
       }}
 
       >
-      <Office />
+      <Office section={section} />
       </motion.group>
     </>
   );
