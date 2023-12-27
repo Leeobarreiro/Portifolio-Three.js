@@ -14,6 +14,9 @@ import * as THREE from "three";
 import { animate, useMotionValue } from "framer-motion";
 import { useFrame } from "@react-three/fiber";
 import { Avatar } from './Avatar'
+import { Text } from 'troika-three-text';
+import { extend } from '@react-three/fiber';
+extend({ Text });
 
 export function Office(props) {
   const {section} = props;
@@ -57,13 +60,13 @@ textureGlassMaterial.opacity = glassTextureOpacity.get();
 useEffect(() => {
   if (quadroTexture) {
     // Rodar a textura em 90 graus
-    quadroTexture.center.set(0,5, 0.5); // Define o ponto central para a rotação
+    quadroTexture.center.set(0.5, 0.5); // Define o ponto central para a rotação
     quadroTexture.rotation = Math.PI / 1; // 90 graus em radianos
 
     // Ajustes adicionais, se necessário
     quadroTexture.wrapS = THREE.RepeatWrapping;
     quadroTexture.wrapT = THREE.RepeatWrapping;
-    quadroTexture.repeat.set(20, 19);
+    quadroTexture.repeat.set(13, 10);
   }
 }, [quadroTexture]);
 
