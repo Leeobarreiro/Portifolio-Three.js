@@ -20,6 +20,7 @@ extend({ Text });
 
 export function Office(props) {
   const {section} = props;
+  const { nodes: bookshelfNodes, materials: bookshelfMaterials } = useGLTF('textures/bookshelf.glb');
   const quadroTexture = useLoader(TextureLoader, 'textures/quadrotext.jpg');
   const quadroMaterial = new THREE.MeshStandardMaterial({
     map: quadroTexture,
@@ -38,40 +39,19 @@ export function Office(props) {
     opacity: 1,
   });
 
-  const textureGlassMaterial = new THREE.MeshStandardMaterial({
-    map: texture,
-    transparent: true,
-    opacity: 0.42,
-  });
-
-  const  textureOpacity = useMotionValue(0);
-  const  glassTextureOpacity = useMotionValue(0);
-
-  useEffect(() => {
-    animate(textureOpacity, section === 0 ? 1 : 0)
-    animate(glassTextureOpacity, section === 0 ? 0.42 : 0)
-  }, [section]);
-
-useFrame(() => {
-textureMaterial.opacity = textureOpacity.get();
-textureGlassMaterial.opacity = glassTextureOpacity.get();
-})
 
 useEffect(() => {
   if (quadroTexture) {
     // Rodar a textura em 90 graus
     quadroTexture.center.set(0.5, 0.5); // Define o ponto central para a rotação
-    quadroTexture.rotation = Math.PI / 1; // 90 graus em radianos
+    quadroTexture.rotation = Math.PI / -2; // 90 graus em radianos
 
     // Ajustes adicionais, se necessário
     quadroTexture.wrapS = THREE.RepeatWrapping;
     quadroTexture.wrapT = THREE.RepeatWrapping;
-    quadroTexture.repeat.set(13, 10);
+    quadroTexture.repeat.set(9, 13);
   }
 }, [quadroTexture]);
-
-
-
 
 
   return (
@@ -295,28 +275,28 @@ useEffect(() => {
         />
       </motion.group>
       <motion.group 
-      scale={[0, 0, 0]}
-      animate={{
-        scale: section === 0 ? 1 : 0,
-      }}
-        name="palm_tree_01"
-        position={[2.13, -0.08, -1.06]}
-        rotation={[-Math.PI, 0.67, -Math.PI]}
+        name="bookshelf"
+        position={[1, 2, -1.06]} // Ajuste a posição conforme necessário
+        rotation={[-Math.PI, 0.67, -Math.PI]} // Ajuste a rotação conforme necessário
+        scale={[0.06, 1, 0.5]} // Ajuste a escala conforme necessário
       >
         <mesh
-          name="palm_tree_01-Mesh"
-          geometry={nodes["palm_tree_01-Mesh"].geometry}
-          material={textureMaterial}
+          castShadow
+          receiveShadow
+          geometry={bookshelfNodes.Object_4.geometry}
+          material={bookshelfMaterials.Bookshelf}
         />
         <mesh
-          name="palm_tree_01-Mesh_1"
-          geometry={nodes["palm_tree_01-Mesh_1"].geometry}
-          material={textureMaterial}
+          castShadow
+          receiveShadow
+          geometry={bookshelfNodes.Object_5.geometry}
+          material={bookshelfMaterials.Book}
         />
         <mesh
-          name="palm_tree_01-Mesh_2"
-          geometry={nodes["palm_tree_01-Mesh_2"].geometry}
-          material={textureMaterial}
+          castShadow
+          receiveShadow
+          geometry={bookshelfNodes.Object_6.geometry}
+          material={bookshelfMaterials.Book}
         />
       </motion.group>
       <motion.group 
@@ -361,7 +341,8 @@ useEffect(() => {
         name="Plane001_3"
         geometry={nodes.Plane001_3.geometry}
         material={quadroMaterial}
-        onClick={() => window.location.href = 'https://seusite.com/projetos'}>
+        onClick={() => window.location.href = 'https://seusite.com/projetos'}
+        >
         {/* Se o quadro tiver alguma animação ou características especiais, adicione aqui */}
       </mesh>
     </group>
@@ -369,3 +350,5 @@ useEffect(() => {
 }
 
 useGLTF.preload("models/scene.gltf");
+useGLTF.preload('textures/bookshelf.glb');
+
