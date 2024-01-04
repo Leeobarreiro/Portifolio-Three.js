@@ -20,21 +20,40 @@ extend({ Text });
 
 export function Office(props) {
   const {section} = props;
-  const { nodes: bookshelfNodes, materials: bookshelfMaterials } = useGLTF('textures/bookshelf.glb');
+
   const quadroTexture = useLoader(TextureLoader, 'textures/quadrotext.jpg');
   const quadroMaterial = new THREE.MeshStandardMaterial({
     map: quadroTexture,
     transparent: true,
     opacity: 1, // Ajuste a opacidade conforme necessário
   });
+
+  const quadroProjetos = useLoader(TextureLoader, 'textures/Projetos2.jpg');
+  const quadromaterialprojetos = new THREE.MeshStandardMaterial({
+    map: quadroProjetos,
+    transparent: true,
+    opacity: 1, // Ajuste a opacidade conforme necessário
+  });
+
+  const paredeTextura = useLoader(TextureLoader, 'textures/parede.jpg');
+  const paredeTexturaObj = new THREE.MeshStandardMaterial({
+    map: paredeTextura,
+    color: "grey",
+    emissive: 'black',// Isso adiciona um brilho sutil ao material
+    transparent: true,
+    opacity: 1, // Ajuste a opacidade conforme necessário
+  });
+
+
   
-  const { nodes, materials } = useGLTF("models/scene.gltf");
+  const { nodes, materials } = useGLTF("models/scene.glb");
   const texture = useTexture("textures/baked.jpg");
   texture.flipY = false;
   texture.encoding = THREE.sRGBEncoding;
 
   const textureMaterial = new THREE.MeshStandardMaterial({
     map: texture,
+    
     transparent: true,
     opacity: 1,
   });
@@ -54,38 +73,38 @@ useEffect(() => {
 }, [quadroTexture]);
 
 
+useEffect(() => {
+  if (quadroProjetos) {
+    quadroProjetos.center.set(0.4, 0.5); // Define o ponto central para a rotação
+    quadroProjetos.rotation = Math.PI / -1; // 90 graus em radianos
+
+    // Ajuste a escala da textura para evitar espelhamento
+    quadroProjetos.wrapS = THREE.RepeatWrapping;
+    quadroProjetos.wrapT = THREE.RepeatWrapping;
+    quadroProjetos.repeat.set(2,1);
+
+    // Inverter a escala em uma direção para desfazer o espelhamento
+    quadroProjetos.repeat.x = -Math.abs(quadroProjetos.repeat.x);
+  }
+}, [quadroProjetos]);
+
+
   return (
     <group {...props} dispose={null}>
-      <group
-        name="Desk"
-        position={[-0.07, 0, -1.52]}
-        rotation={[0, -Math.PI / 2, 0]}
-      >
+       <group position={[-0.447, 0.707, -1.809]}>
         <mesh
-          name="Plane001_Plane002_BlackWood001"
+          castShadow
+          receiveShadow
           geometry={nodes.Plane001_Plane002_BlackWood001.geometry}
-          material={textureMaterial}
+          material={materials.tampo}
         />
         <mesh
-          name="Plane001_Plane002_BlackWood001_1"
+          castShadow
+          receiveShadow
           geometry={nodes.Plane001_Plane002_BlackWood001_1.geometry}
-          material={textureMaterial}
+          material={materials.perna}
         />
-        <mesh
-          name="Plane001_Plane002_BlackWood001_2"
-          geometry={nodes.Plane001_Plane002_BlackWood001_2.geometry}
-          material={textureMaterial}
-        />
-        <mesh
-          name="Plane001_Plane002_BlackWood001_3"
-          geometry={nodes.Plane001_Plane002_BlackWood001_3.geometry}
-          material={textureMaterial}
-        />
-        <mesh
-          name="Plane001_Plane002_BlackWood001_4"
-          geometry={nodes.Plane001_Plane002_BlackWood001_4.geometry}
-          material={textureMaterial}
-        />
+       
       </group>
       <group name="SM_ShelfSM_Shelf1" position={[-0.87, 1.69, -2.04]}>
         <mesh
@@ -99,6 +118,27 @@ useEffect(() => {
           material={textureMaterial}
         />
       </group>
+      <group position={[-1.302, 2.071, -1.986]}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes["Node-Mesh001"].geometry}
+          material={textureMaterial}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes["Node-Mesh001_1"].geometry}
+          material={textureMaterial}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes["Node-Mesh001_2"].geometry}
+          material={textureMaterial}
+        />
+      </group>
+
       <motion.group 
       scale={[0, 0, 0]}
       animate={{
@@ -227,78 +267,8 @@ useEffect(() => {
         geometry={nodes.Comp_Mouse.geometry}
         material={textureMaterial}
       />
-      <motion.group 
-      scale={[0, 0, 0]}
-      animate={{
-        scale: section === 0 ? 1 : 0,
-      }} name="plant" position={[-0.78, 1.07, -1.61]}>
-        <mesh
-          name="mesh24448074"
-          geometry={nodes.mesh24448074.geometry}
-          material={textureMaterial}
-        />
-        
-        <mesh
-          name="mesh24448074_1"
-          geometry={nodes.mesh24448074_1.geometry}
-          material={textureMaterial}
-        />
-        <mesh
-          name="mesh24448074_2"
-          geometry={nodes.mesh24448074_2.geometry}
-          material={textureMaterial}
-        />
-      </motion.group>
-      <motion.group 
-      scale={[0, 0, 0]}
-      animate={{
-        scale: section === 0 ? 1 : 0,
-      }}
-        name="Houseplant_7"
-        position={[-2.02, -0.04, -1.53]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      >
-        <mesh
-          name="Houseplant_7_1"
-          geometry={nodes.Houseplant_7_1.geometry}
-          material={textureMaterial}
-        />
-        <mesh
-          name="Houseplant_7_2"
-          geometry={nodes.Houseplant_7_2.geometry}
-          material={textureMaterial}
-        />
-        <mesh
-          name="Houseplant_7_3"
-          geometry={nodes.Houseplant_7_3.geometry}
-          material={textureMaterial}
-        />
-      </motion.group>
-      <motion.group 
-        name="bookshelf"
-        position={[1, 2, -1.06]} // Ajuste a posição conforme necessário
-        rotation={[-Math.PI, 0.67, -Math.PI]} // Ajuste a rotação conforme necessário
-        scale={[0.06, 1, 0.5]} // Ajuste a escala conforme necessário
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={bookshelfNodes.Object_4.geometry}
-          material={bookshelfMaterials.Bookshelf}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={bookshelfNodes.Object_5.geometry}
-          material={bookshelfMaterials.Book}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={bookshelfNodes.Object_6.geometry}
-          material={bookshelfMaterials.Book}
-        />
-      </motion.group>
+
+     
       <motion.group 
       scale={[0, 0, 0]}
       animate={{
@@ -325,30 +295,25 @@ useEffect(() => {
       <mesh
         name="Plane001"
         geometry={nodes.Plane001.geometry}
-        material={textureMaterial}
+        material={materials.Floor}
       />
       <mesh
         name="Plane001_1"
         geometry={nodes.Plane001_1.geometry}
-        material={textureMaterial}
+        material={materials.White}
       />
       <mesh
         name="Plane001_2"
         geometry={nodes.Plane001_2.geometry}
-        material={textureMaterial}
+        material={materials.Wall}
       />
-      <mesh
-        name="Plane001_3"
-        geometry={nodes.Plane001_3.geometry}
-        material={quadroMaterial}
-        onClick={() => window.location.href = 'https://seusite.com/projetos'}
-        >
-        {/* Se o quadro tiver alguma animação ou características especiais, adicione aqui */}
-      </mesh>
-    </group>
+      
+      </group>
+    
   );
 }
 
-useGLTF.preload("models/scene.gltf");
-useGLTF.preload('textures/bookshelf.glb');
+useGLTF.preload("models/scene.glb");
+
+
 

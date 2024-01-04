@@ -42,8 +42,7 @@ function App() {
           menuOpened={menuOpened}
           setMenuOpened={setMenuOpened}
         />
-        <Cursor />
-      </MotionConfig>
+        </MotionConfig>
       <Leva hidden />
     </>
   );
